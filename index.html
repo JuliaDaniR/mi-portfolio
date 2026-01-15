@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Julia Daniela Rodriguez - Backend Java Developer</title>
+    <style>
+      /* === BODY Y FONDO === */
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0d0d0f;
+        color: #e5e5e5;
+        background-image: radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 255, 255, 0.06),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(255, 255, 255, 0.04),
+            transparent 65%
+          ),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="120" height="120" filter="url(%23noiseFilter)" opacity="0.18"/></svg>');
+        background-size: cover, cover, 200px;
+        background-blend-mode: soft-light;
+      }
+
+      /* === VARIABLES DE COLOR === */
+      :root {
+        --primary: #6f8cff;
+        --primary-light: #9db3ff;
+        --secondary: #ff7acb;
+        --accent: #3cf2b3;
+      }
+
+      /* === CABECERA === */
+      .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2.3rem;
+        margin-bottom: 5px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      h2 {
+        font-size: 1.1rem;
+        color: var(--primary-light);
+        letter-spacing: 1px;
+      }
+
+      nav {
+        margin-top: 25px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+      }
+
+      nav a {
+        padding: 10px 20px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: var(--primary-light);
+        text-decoration: none;
+        font-size: 1rem;
+        transition: 0.25s ease;
+        margin: 0;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.25);
+      }
+
+      nav a:hover {
+        background: radial-gradient(
+          circle at top left,
+          var(--primary),
+          var(--secondary)
+        );
+        border-color: var(--secondary);
+        color: #fff;
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
+      }
+
+      /* === SECCIONES === */
+      .section {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 25px 25px 35px;
+        background: rgba(20, 20, 28, 0.85);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+        opacity: 0;
+        transform: scale(0.98);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .section h3 {
+        color: var(--accent);
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+      }
+
+      .section.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+      /* === BADGE ESTADO PROYECTO DESTACADO === */
+      .status-badge {
+        width: 30%;
+        text-align: center;
+        background: #ffb400;
+        color: #000;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: bold;
+      }
+
+      /* === BOTONES === */
+      .btn {
+        display: inline-block;
+        margin: 15px;
+        text-align: center;
+        padding: 12px 25px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-radius: 8px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s ease;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+      }
+
+      .btn:hover {
+        transform: scale(1.06);
+        background: linear-gradient(135deg, var(--secondary), var(--primary));
+      }
+
+      /* === LISTAS === */
+      ul {
+        line-height: 1.8;
+      }
+      li::marker {
+        color: var(--primary-light);
+      }
+
+      /* === TARJETAS DE PROYECTO === */
+      .project-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 25px;
+        margin-top: 25px;
+      }
+
+      .card {
+        background: #1a1d29;
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transform-style: preserve-3d;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-bottom: 20px;
+      }
+
+      .card:hover {
+        transform: translateY(-8px) scale(1.03) rotateX(4deg);
+        box-shadow: 0 0 35px rgba(0, 0, 0, 0.45);
+        border-color: var(--secondary);
+      }
+
+      .card img {
+        width: 100%;
+        height: 140px;
+        display: block;
+      }
+
+      .colaborativos .card img {
+        height: 250px;
+      }
+
+      .card h4 {
+        margin: 15px;
+        font-size: 1.2rem;
+        color: var(--primary-light);
+      }
+      .card p {
+        margin: 0 15px 15px;
+        color: #cfcfcf;
+      }
+      .card .tech {
+        margin: 0 15px 20px;
+        font-size: 0.9rem;
+        color: var(--accent);
+      }
+
+      /* === CHIP === */
+      .chip {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 6px 12px;
+        margin: 4px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: var(--primary-light);
+        transition: 0.3s;
+      }
+
+      .chip:hover {
+        background: var(--secondary);
+        color: #fff;
+        transform: scale(1.05);
+      }
+
+      /* === TARJETA DESTACADA === */
+      .featured-card {
+        background: linear-gradient(135deg, #1c1f2b50, #23283a68);
+        padding: 35px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 35px rgba(0, 0, 0, 0.35);
+        margin-top: 20px;
+        transition: 0.4s ease;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: flex-end;
+      }
+
+      .featured-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+        border-color: var(--accent);
+      }
+
+      .featured-card h4 {
+        font-size: 1.6rem;
+        color: var(--primary-light);
+        margin-bottom: 10px;
+      }
+
+      .featured-card p {
+        color: #dcdcdc;
+        margin-bottom: 15px;
+      }
+
+      .featured-img {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .lang-en {
+        display: none;
+      }
+
+      /* === TYPING === */
+      #typing {
+        font-size: 2.8rem;
+        font-weight: bold;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid var(--secondary);
+        display: inline-block;
+        animation: typing 3.5s steps(40) forwards, blink 0.8s infinite;
+      }
+
+      @media (max-width: 850px) {
+        #typing {
+          font-size: 2rem;
+        }
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      /* === BARRA LUMINOSA === */
+      .title-bar {
+        width: 130px;
+        height: 4px;
+        margin: 10px auto 20px;
+        background: linear-gradient(90deg, var(--accent), var(--secondary));
+        border-radius: 4px;
+        animation: glow-move 3s infinite alternate;
+      }
+
+      @keyframes glow-move {
+        0% {
+          box-shadow: 0 0 5px var(--secondary);
+        }
+        100% {
+          box-shadow: 0 0 18px var(--accent);
+        }
+      }
+
+      /* === IMÁGENES === */
+      img:hover {
+        filter: brightness(1.15);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+        transition: 0.3s;
+      }
+      .skills-box {
+        margin-top: 35px;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 10px 14px;
+        border-radius: 8px;
+        transition: 0.25s ease;
+      }
+
+      .skill-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-3px);
+      }
+
+      .skill-icon {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.35));
+      }
+
+      /* === SOBRE MÍ – NUEVAS CLASES === */
+
+      .statement-box {
+        padding: 18px;
+        margin-bottom: 25px;
+        border-left: 4px solid var(--accent);
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        font-size: 1.05rem;
+        color: var(--primary-light);
+      }
+
+      .about-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        align-items: flex-start;
+      }
+
+      .about-box {
+        flex: 1;
+        min-width: 260px;
+        padding: 20px;
+        border-left: 4px solid var(--accent);
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+      }
+
+      .strength-box {
+        flex: 1;
+        min-width: 240px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+      }
+
+      .timeline-box {
+        margin-top: 35px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .timeline-title {
+        color: var(--secondary);
+        margin-bottom: 15px;
+      }
+
+      .timeline-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        font-size: 0.95rem;
+        color: #ccc;
+      }
+
+      .timeline-item {
+        flex: 1;
+        min-width: 180px;
+      }
+
+      .mission-box {
+        margin-top: 35px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        border-left: 4px solid var(--secondary);
+      }
+
+      .mission-title {
+        color: var(--secondary);
+        margin-bottom: 10px;
+      }
+
+      /* === TIMELINE EXPERIENCIA Y EDUCACIÓN === */
+
+      .timeline-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        position: relative;
+        padding-left: 35px;
+      }
+
+      .timeline-wrapper::before {
+        content: "";
+        position: absolute;
+        left: 12px;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(var(--secondary), var(--accent));
+        border-radius: 10px;
+        opacity: 0.45;
+      }
+
+      .timeline-item {
+        position: relative;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 14px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 0 18px rgba(0, 0, 0, 0.25);
+        transition: 0.3s ease;
+      }
+
+      .timeline-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 0 28px rgba(0, 0, 0, 0.45);
+        border-color: var(--secondary);
+      }
+
+      .timeline-marker {
+        position: absolute;
+        left: -34px;
+        top: 22px;
+        width: 22px;
+        height: 22px;
+        background: linear-gradient(135deg, var(--secondary), var(--accent));
+        border-radius: 50%;
+        box-shadow: 0 0 15px var(--secondary);
+      }
+
+      .timeline-title {
+        color: var(--primary-light);
+        font-size: 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      .timeline-role {
+        font-weight: bold;
+        font-size: 1.05rem;
+        color: #fff;
+      }
+
+      .timeline-desc {
+        color: #bfbfbf;
+        font-size: 0.95rem;
+        margin-top: 5px;
+      }
+
+      .badges {
+        margin-top: 12px;
+      }
+
+      .badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 5px 12px;
+        margin: 3px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        color: var(--accent);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .badge:hover {
+        background: var(--secondary);
+        color: #fff;
+        border-color: var(--secondary);
+      }
+
+      /* === FOOTER === */
+      .footer {
+        text-align: center;
+        padding: 30px;
+        background: #111216;
+        color: #aaa;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        position: relative;
+      }
+
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 160px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--accent), var(--secondary));
+        border-radius: 4px;
+        box-shadow: 0 0 15px var(--accent);
+        animation: glow-bar 3s infinite alternate;
+      }
+
+      @keyframes glow-bar {
+        0% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 1;
+          box-shadow: 0 0 25px var(--secondary);
+        }
+      }
+      /* ===========================
+   CONTACTO — RESPONSIVE
+=========================== */
+
+      /* Contenedor general */
+      #contacto .section {
+        width: 100%;
+      }
+
+      /* Alineación general mobile */
+      #contacto div {
+        text-align: left;
+      }
+
+      /* Avatar responsive */
+      @media (max-width: 720px) {
+        #contacto > div {
+          flex-direction: column;
+          gap: 25px !important;
+        }
+      }
+
+      /* Mobile más chico */
+      @media (max-width: 480px) {
+        #contacto h3 {
+          font-size: 1.4rem;
+        }
+
+        #contacto .contact-item {
+          font-size: 0.9rem;
+          gap: 10px !important;
+        }
+
+        #contacto .chip {
+          padding: 5px 10px;
+          font-size: 0.78rem;
+        }
+
+        #contacto a[download] {
+          width: 100%;
+          text-align: center;
+          padding: 12px;
+          font-size: 0.95rem;
+        }
+        .btn-descarga-cv {
+          width: 90% !important;
+        }
+      }
+
+      /* Avatar con hover sutil */
+      #contacto img:hover {
+        transform: scale(1.02);
+        transition: 0.3s ease;
+      }
+
+      /* Botón responsive */
+      #contacto a[download] {
+        display: inline-block;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <!-- Botón de cambio de idioma -->
+      <div style="position: absolute; top: 20px; right: 25px">
+        <button
+          id="lang-toggle"
+          style="
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--primary-light);
+            cursor: pointer;
+          "
+        >
+          EN / ES
+        </button>
+      </div>
+
+      <h1 id="typing"></h1>
+
+      <!-- SUBTÍTULO -->
+      <h2 class="lang-es">Desarrolladora Java Backend</h2>
+      <h2 class="lang-en">Java Backend Developer</h2>
+
+      <div class="title-bar"></div>
+
+      <!-- NAV COMPLETO BILINGÜE -->
+      <nav>
+        <!-- Español -->
+        <a class="lang-es" href="#proyecto">Proyecto Destacado</a>
+        <a class="lang-es" href="#otros-proyectos">Proyectos</a>
+        <a class="lang-es" href="#sobre-mi">Sobre mí</a>
+        <a class="lang-es" href="#contacto">Contacto</a>
+
+        <!-- Inglés -->
+        <a class="lang-en" href="#proyecto">Featured Project</a>
+        <a class="lang-en" href="#otros-proyectos">Projects</a>
+        <a class="lang-en" href="#sobre-mi">About Me</a>
+        <a class="lang-en" href="#contacto">Contact</a>
+      </nav>
+    </header>
+
+    <section id="sobre-mi" class="section">
+      <!-- TÍTULO -->
+      <h3 class="lang-es">Sobre mí</h3>
+      <h3 class="lang-en">About Me</h3>
+
+      <!-- Statement técnico -->
+      <div class="statement-box">
+        <strong style="color: var(--accent)">“</strong>
+        <span class="lang-es">
+          Creo soluciones basadas en arquitectura sólida, código mantenible y
+          decisiones técnicas conscientes.
+        </span>
+        <span class="lang-en">
+          I build solutions based on solid architecture, maintainable code and
+          thoughtful technical decisions.
+        </span>
+        <strong style="color: var(--accent)">”</strong>
+      </div>
+
+      <div class="about-container">
+        <!-- Sobre mí descripción -->
+        <div class="about-box">
+          <p class="lang-es">
+            Soy una desarrolladora Backend Java enfocada en crear APIs robustas,
+            organizadas y seguras. Trabajo con patrones claros, arquitectura por
+            capas y buenas prácticas, priorizando calidad y mantenibilidad.
+          </p>
+          <p class="lang-en">
+            I am a Java Backend Developer focused on building robust, organized
+            and secure APIs. I work with clear patterns, layered architecture
+            and best practices, always prioritizing quality and maintainability.
+          </p>
+
+          <p
+            class="lang-es"
+            style="
+              margin-top: 10px;
+              color: var(--primary-light);
+              font-size: 0.95rem;
+            "
+          >
+            → Mi enfoque está en la disciplina, el pensamiento sistemático y la
+            mejora continua.
+          </p>
+          <p
+            class="lang-en"
+            style="
+              margin-top: 10px;
+              color: var(--primary-light);
+              font-size: 0.95rem;
+            "
+          >
+            → My approach is based on discipline, systematic thinking and
+            continuous improvement.
+          </p>
+        </div>
+
+        <!-- Fortalezas -->
+        <div class="strength-box">
+          <h4
+            class="lang-es"
+            style="color: var(--primary-light); margin-bottom: 10px"
+          >
+            Fortalezas
+          </h4>
+          <h4
+            class="lang-en"
+            style="color: var(--primary-light); margin-bottom: 10px"
+          >
+            Strengths
+          </h4><br />
+
+          <!-- Chips -->
+          <span class="chip lang-es">Pensamiento lógico</span>
+          <span class="chip lang-en">Logical Thinking</span>
+
+          <span class="chip lang-es">Resolución de problemas</span>
+          <span class="chip lang-en">Problem Solving</span>
+
+          <span class="chip lang-es">Código limpio</span>
+          <span class="chip lang-en">Clean Code</span>
+
+          <span class="chip lang-es">Arquitectura en capas</span>
+          <span class="chip lang-en">Layered Architecture</span>
+
+          <span class="chip lang-es">Trabajo en equipo</span>
+          <span class="chip lang-en">Teamwork</span>
+        </div>
+      </div>
+
+      <!-- Línea de tiempo -->
+      <div class="timeline-box">
+        <h4 class="timeline-title lang-es">Mi camino</h4>
+        <h4 class="timeline-title lang-en">My Journey</h4>
+
+        <div class="timeline-container">
+          <div class="timeline-item">
+            <strong style="color: var(--accent)">2023</strong><br />
+            <span class="lang-es">
+              Inicio formal en programación. Bases sólidas en lógica, JS y
+              fundamentos de backend.
+            </span>
+            <span class="lang-en">
+              Formal start in programming. Solid foundations in logic, JS and
+              backend fundamentals.
+            </span>
+          </div>
+
+          <div class="timeline-item">
+            <strong style="color: var(--accent)">2024</strong><br />
+            <span class="lang-es">
+              Consolidación en Java + Spring Boot. Patrones, arquitectura y
+              buenas prácticas.
+            </span>
+            <span class="lang-en">
+              Consolidation in Java + Spring Boot. Patterns, architecture and
+              best practices.
+            </span>
+          </div>
+
+          <div class="timeline-item">
+            <strong style="color: var(--accent)">2025</strong><br />
+            <span class="lang-es">
+              Enfoque profesional: Backend, APIs, diseño modular y
+              escalabilidad.
+            </span>
+            <span class="lang-en">
+              Professional focus: Backend, APIs, modular design and scalability.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Misión profesional -->
+      <div class="mission-box">
+        <h4 class="mission-title lang-es">Mi misión como desarrolladora</h4>
+        <h4 class="mission-title lang-en">My Mission as a Developer</h4>
+
+        <p class="lang-es" style="color: #ccc; font-size: 0.95rem">
+          Construir software estable, predecible y bien diseñado. Aplicar
+          patrones, escribir código claro y reducir complejidad. Priorizar
+          calidad, mantenibilidad y decisiones técnicas que hagan sentido.
+        </p>
+
+        <p class="lang-en" style="color: #ccc; font-size: 0.95rem">
+          Build stable, predictable and well-designed software. Apply patterns,
+          write clear code and reduce complexity. Prioritize quality,
+          maintainability and meaningful technical decisions.
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills Técnicos -->
+    <section class="skills-box section">
+      <h3
+        class="lang-es"
+        style="color: var(--primary-light); margin-bottom: 12px"
+      >
+        Tecnologías y Stack Principal
+      </h3>
+      <h3
+        class="lang-en"
+        style="color: var(--primary-light); margin-bottom: 12px"
+      >
+        Technologies & Main Stack
+      </h3>
+
+      <div class="skills-grid">
+        <!-- Java -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+            alt="Java"
+            class="skill-icon"
+          />
+          <span class="lang-es">Java</span>
+          <span class="lang-en">Java</span>
+        </div>
+
+        <!-- Spring Boot -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"
+            alt="Spring Boot"
+            class="skill-icon"
+          />
+          <span class="lang-es">Spring Boot</span>
+          <span class="lang-en">Spring Boot</span>
+        </div>
+
+        <!-- Spring Security -->
+        <div class="skill-item">
+          <img src="/img/lock.svg" class="skill-icon" alt="Security" />
+          <span class="lang-es">Spring Security (JWT)</span>
+          <span class="lang-en">Spring Security (JWT)</span>
+        </div>
+
+        <!-- REST APIs -->
+        <div class="skill-item">
+          <svg class="skill-icon" viewBox="0 0 24 24">
+            <path
+              fill="#8a2be2"
+              d="M3 3h18v4H3V3m0 7h18v4H3v-4m0 7h18v4H3v-4z"
+            />
+          </svg>
+          <span class="lang-es">APIs REST</span>
+          <span class="lang-en">REST APIs</span>
+        </div>
+
+        <!-- JPA / Hibernate -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hibernate/hibernate-original.svg"
+            class="skill-icon"
+            alt="Hibernate"
+          />
+          <span class="lang-es">JPA / Hibernate</span>
+          <span class="lang-en">JPA / Hibernate</span>
+        </div>
+
+        <!-- MySQL -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
+            class="skill-icon"
+            alt="MySQL"
+          />
+          <span class="lang-es">MySQL</span>
+          <span class="lang-en">MySQL</span>
+        </div>
+
+        <!-- PostgreSQL -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+            class="skill-icon"
+            alt="PostgreSQL"
+          />
+          <span class="lang-es">PostgreSQL</span>
+          <span class="lang-en">PostgreSQL</span>
+        </div>
+
+        <!-- Flyway -->
+        <div class="skill-item">
+          <svg class="skill-icon" viewBox="0 0 24 24">
+            <path fill="#8a2be2" d="M12 2L1 21h22L12 2z" />
+          </svg>
+          <span class="lang-es">Flyway</span>
+          <span class="lang-en">Flyway</span>
+        </div>
+
+        <!-- Docker -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+            class="skill-icon"
+            alt="Docker"
+          />
+          <span class="lang-es">Docker</span>
+          <span class="lang-en">Docker</span>
+        </div>
+
+        <!-- Git -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
+            class="skill-icon"
+            alt="Git"
+          />
+          <span class="lang-es">Git & GitHub</span>
+          <span class="lang-en">Git & GitHub</span>
+        </div>
+
+        <!-- Swagger -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg"
+            class="skill-icon"
+            alt="Swagger"
+          />
+          <span class="lang-es">Swagger / OpenAPI 3</span>
+          <span class="lang-en">Swagger / OpenAPI 3</span>
+        </div>
+
+        <!-- Testing -->
+        <div class="skill-item">
+          <svg class="skill-icon" viewBox="0 0 24 24">
+            <path
+              fill="#cccccc"
+              d="M4 22v-2h16v2H4m8-20c2.7 0 5 2.3 5 5 0 2.2-1.5 4.1-3.5 4.8L13 19h-2l-.5-7.2C8.5 11.1 7 9.2 7 7c0-2.7 2.3-5 5-5z"
+            />
+          </svg>
+          <span class="lang-es">Testing (JUnit)</span>
+          <span class="lang-en">Testing (JUnit)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qué hago como backend -->
+    <section
+      class="backend-focus-box section"
+      style="
+        margin-top: 30px;
+        padding: 18px 22px;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 10px;
+      "
+    >
+      <h3 class="mission-title lang-es">Mi enfoque como Backend Developer</h3>
+      <h3 class="mission-title lang-en">My Approach as a Backend Developer</h3>
+
+      <!-- Texto -->
+      <p
+        class="lang-es"
+        style="color: #ccc; font-size: 0.95rem; line-height: 1.5"
+      >
+        Desarrollar backend para mí no es solo escribir código: es diseñar
+        soluciones que realmente resuelven problemas. Pienso cada API desde la
+        experiencia del usuario final y desde las necesidades del frontend,
+        anticipando qué datos deben estar disponibles, cómo deben entregarse y
+        de qué forma impactan en la interfaz y el flujo de uso.
+        <br /><br />
+        Construyo <strong>APIs REST mantenibles, escalables y claras</strong>,
+        con arquitectura modular, validaciones reales del negocio, seguridad
+        basada en JWT + roles, manejo de errores consistente y documentación
+        completa. Priorizo la calidad, la comunicación con el equipo y un
+        enfoque técnico alineado con los objetivos del producto.
+      </p>
+
+      <p
+        class="lang-en"
+        style="color: #ccc; font-size: 0.95rem; line-height: 1.5"
+      >
+        For me, backend development is not just writing code: it's about
+        designing solutions that truly solve problems. I approach every API from
+        both the end-user experience and the frontend needs, anticipating what
+        data must be available, how it should be delivered, and how it impacts
+        the interface and the user flow.
+        <br /><br />
+        I build <strong>maintainable, scalable and clear REST APIs</strong> with
+        modular architecture, real business validations, JWT-based security with
+        roles, consistent error handling and complete documentation. I
+        prioritize quality, team communication and a technical mindset aligned
+        with product goals.
+      </p>
+    </section>
+
+    <!-- Proyecto Destacado -->
+    <section id="proyecto" class="section">
+      <!-- Título -->
+      <h3 class="lang-es">Proyecto Destacado</h3>
+      <h3 class="lang-en">Featured Project</h3>
+
+      <div class="featured-card">
+        <img
+          class="featured-img"
+          src="/img/img-pettiway.png"
+          alt="PettiWay-Back"
+          style="width: 60%; margin: 0 auto"
+        />
+
+        <!-- Título del proyecto -->
+        <h4 class="lang-es">
+          PettiWay — Plataforma Integral para Servicios Pet
+        </h4>
+        <h4 class="lang-en">PettiWay — Full Platform for Pet Services</h4>
+
+        <!-- Estado -->
+        <div class="status-badge lang-es">🚧 En desarrollo</div>
+        <div class="status-badge lang-en">🚧 In development</div>
+
+        <!-- Descripción -->
+        <p class="lang-es">
+          API REST desarrollada con <strong>Java y Spring Boot</strong> bajo una
+          <strong>arquitectura hexagonal modular</strong>. Incluye autenticación
+          JWT, autorización por roles, paginado, validaciones, auditoría, manejo
+          de errores estandarizado y documentación técnica completa.
+          <br /><br />
+          Integra <strong>geolocalización en tiempo real</strong> mediante
+          Google Maps, <strong>mensajería instantánea</strong> con WebSockets y
+          un módulo de ventas con
+          <strong>carrito de compras</strong> actualmente en construcción.
+          Diseñado con enfoque en escalabilidad, mantenibilidad y separación
+          clara de responsabilidades.
+        </p>
+
+        <p class="lang-en">
+          REST API built using <strong>Java and Spring Boot</strong> following a
+          <strong>modular hexagonal architecture</strong>. Includes JWT
+          authentication, role-based authorization, pagination, validations,
+          auditing, standardized error handling and full technical
+          documentation. <br /><br />
+          Integrates <strong>real-time geolocation</strong> using Google Maps,
+          <strong>instant messaging</strong> via WebSockets, and a sales module
+          with a <strong>shopping cart</strong> currently under development.
+          Designed with a strong focus on scalability, maintainability and clear
+          separation of concerns.
+        </p>
+
+        <!-- Chips / Tecnologías -->
+        <div class="chips">
+          <span class="chip">Java</span>
+          <span class="chip">Spring Boot</span>
+          <span class="chip lang-es">Arquitectura Hexagonal</span>
+          <span class="chip lang-en">Hexagonal Architecture</span>
+          <span class="chip">DDD</span>
+          <span class="chip">WebSockets</span>
+          <span class="chip">Google Maps API</span>
+          <span class="chip">JWT</span>
+          <span class="chip">MySQL</span>
+          <span class="chip">Flyway</span>
+          <span class="chip">Swagger</span>
+        </div>
+
+        <!-- Botón -->
+        <a
+          class="btn lang-es"
+          href="https://github.com/Altiora-Tech/PettiWay-Back"
+          target="_blank"
+        >
+          Ver en GitHub
+        </a>
+
+        <a
+          class="btn lang-en"
+          href="https://github.com/Altiora-Tech/PettiWay-Back"
+          target="_blank"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </section>
+
+    <section id="otros-proyectos" class="section">
+      <!-- Título -->
+      <h3 class="lang-es">Otros Proyectos Backend</h3>
+      <h3 class="lang-en">Other Backend Projects</h3><br />
+
+      <!-- Subtítulo -->
+      <h4 class="subtitle lang-es">Proyectos Individuales</h4>
+      <h4 class="subtitle lang-en">Individual Projects</h4>
+
+      <div class="project-cards">
+        <!-- Clínica VollMed -->
+        <div class="card">
+          <img src="/img/img-vollmed.png" alt="Clínica VollMed" />
+
+          <h4 class="lang-es">Clínica VollMed — Plataforma Clínica Integral</h4>
+          <h4 class="lang-en">Clínica VollMed — Complete Clinical Platform</h4>
+
+          <p class="lang-es">
+            Plataforma clínica orientada a dominio con
+            <strong>arquitectura por capas</strong>, autenticación
+            <strong>JWT + Refresh rotativo</strong>, auditoría completa y
+            control de acceso por roles. Incluye gestión de turnos, historia
+            clínica, recetas, horarios médicos y reglas reales de agenda.
+            Diseñada para escalabilidad, mantenibilidad y seguridad enterprise.
+          </p>
+
+          <p class="lang-en">
+            Domain-oriented clinical platform with a
+            <strong>layered architecture</strong>,
+            <strong>JWT + rotating refresh tokens</strong>, full auditing and
+            role-based access control. Includes appointment scheduling, medical
+            records, prescriptions, doctor availability and real-world
+            scheduling rules. Designed for scalability, maintainability and
+            enterprise-grade security.
+          </p>
+
+          <div class="tech">
+            Java · Spring Boot · Spring Security · JWT · JPA · Flyway · Swagger
+          </div>
+
+          <a
+            class="btn lang-es"
+            href="https://github.com/JuliaDaniR/clinicaVollMed"
+            target="_blank"
+          >
+            Ver en GitHub
+          </a>
+          <a
+            class="btn lang-en"
+            href="https://github.com/JuliaDaniR/clinicaVollMed"
+            target="_blank"
+          >
+            View on GitHub
+          </a>
+        </div>
+
+        <!-- ForoHub -->
+        <div class="card">
+          <img src="/img/img-forohub.png" alt="ForoHub" />
+
+          <h4 class="lang-es">ForoHub</h4>
+          <h4 class="lang-en">ForoHub</h4>
+
+          <p class="lang-es">
+            API REST para gestión de foros educativos con usuarios, roles,
+            tópicos y respuestas. Implementa autenticación JWT, validaciones,
+            paginado y documentación con Swagger. Arquitectura limpia y
+            endpoints diseñados para administradores reales, priorizando
+            claridad, orden y mantenibilidad.
+          </p>
+
+          <p class="lang-en">
+            REST API for educational forums including users, roles, topics and
+            replies. Implements JWT authentication, validations, pagination and
+            full Swagger docs. Clean architecture and endpoints designed for
+            real admin workflows, prioritizing clarity, structure and
+            maintainability.
+          </p>
+
+          <div class="tech">Java · Spring Boot · JWT · MySQL · Swagger</div>
+
+          <a
+            class="btn lang-es"
+            href="https://github.com/JuliaDaniR/foroHub"
+            target="_blank"
+          >
+            Ver en GitHub
+          </a>
+          <a
+            class="btn lang-en"
+            href="https://github.com/JuliaDaniR/foroHub"
+            target="_blank"
+          >
+            View on GitHub
+          </a>
+        </div>
+
+        <!-- Literalura -->
+        <div class="card">
+          <img src="/img/img-literalura.png" alt="Literalura" />
+
+          <h4 class="lang-es">Literalura</h4>
+          <h4 class="lang-en">Literalura</h4>
+
+          <p class="lang-es">
+            API para biblioteca digital que consume la API externa
+            <strong>Gutendex</strong> (70k+ libros). Implementa
+            <strong>búsquedas asincrónicas con hilos</strong>, paginado
+            automático, filtrado avanzado y persistencia local. Proyecto
+            fullstack con frontend en Tailwind, HTML, CSS y JS. Ideal para
+            integración externa, concurrencia y manejo de grandes volúmenes de
+            datos.
+          </p>
+
+          <p class="lang-en">
+            Digital library API consuming the external
+            <strong>Gutendex</strong> API (70k+ books). Implements
+            <strong>asynchronous multithreaded searches</strong>, automatic
+            pagination, advanced filtering and local persistence. Fullstack
+            project with Tailwind, HTML, CSS and JS. Great example of external
+            integration, concurrency and large-scale data handling.
+          </p>
+
+          <div class="tech">Java · Spring Boot · PostgreSQL · Swagger</div>
+
+          <a
+            class="btn lang-es"
+            href="https://github.com/JuliaDaniR/literalura"
+            target="_blank"
+          >
+            Ver en GitHub
+          </a>
+          <a
+            class="btn lang-en"
+            href="https://github.com/JuliaDaniR/literalura"
+            target="_blank"
+          >
+            View on GitHub
+          </a>
+        </div>
+
+        <!-- Horizontes Viajeros -->
+        <div class="card">
+          <img src="/img/img-viajes.png" alt="Horizontes Viajeros" />
+
+          <h4 class="lang-es">Horizontes Viajeros</h4>
+          <h4 class="lang-en">Horizontes Viajeros</h4>
+
+          <p class="lang-es">
+            Sistema de gestión para agencia de turismo con administración de
+            clientes, vendedores, servicios y paquetes turísticos. Incluye
+            carrito de compras, ventas, reportes diarios/mensuales/anuales,
+            filtros avanzados y control de acceso por roles. Arquitectura
+            organizada, lógica clara y operaciones completas de ABM.
+          </p>
+
+          <p class="lang-en">
+            Management system for travel agencies including customers, agents,
+            services and tour packages. Features shopping cart, sales module,
+            daily/monthly/annual reports, advanced filters and role-based access
+            control. Well-organized architecture, clear business logic and full
+            CRUD operations.
+          </p>
+
+          <div class="tech">
+            Java · Spring Boot · Spring Security · MySQL · Swagger · Docker
+          </div>
+
+          <a
+            class="btn lang-es"
+            href="https://github.com/JuliaDaniR/horizontesViajeros"
+            target="_blank"
+          >
+            Ver en GitHub
+          </a>
+          <a
+            class="btn lang-en"
+            href="https://github.com/JuliaDaniR/horizontesViajeros"
+            target="_blank"
+          >
+            View on GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Proyectos colaborativos -->
+      <h4 class="subtitle lang-es">Proyectos Colaborativos</h4>
+      <h4 class="subtitle lang-en">Collaborative Projects</h4>
+
+      <div class="project-cards colaborativos">
+        <!-- Petcare -->
+        <div class="card">
+          <img src="/img/img-petcare.png" alt="Petcare" />
+
+          <h4 class="lang-es">
+            Petcare — Plataforma de Servicios para Mascotas
+          </h4>
+          <h4 class="lang-en">Petcare — Pet Services Platform</h4>
+
+          <p class="lang-es">
+            Proyecto colaborativo donde participé como
+            <strong>Backend Leader</strong> y <strong>Project Manager</strong>.
+            Realicé el desarrollo principal del backend: servicios, endpoints,
+            modelado de datos, validaciones y soporte técnico al equipo. Sistema
+            que conecta dueños de mascotas con profesionales del cuidado animal.
+          </p>
+
+          <p class="lang-en">
+            Collaborative project where I worked as
+            <strong>Backend Leader</strong> and
+            <strong>Project Manager</strong>. I was responsible for the main
+            backend development: services, endpoints, data modeling, validations
+            and technical support for the team. Platform that connects pet
+            owners with animal care professionals.
+          </p>
+
+          <div class="tech">
+            Java · Spring Boot · Spring Security · MySQL · Docker · Swagger
+          </div>
+
+          <a
+            class="btn lang-es"
+            href="https://github.com/HO25Equipo8/petcare"
+            target="_blank"
+          >
+            Ver en GitHub
+          </a>
+          <a
+            class="btn lang-en"
+            href="https://github.com/HO25Equipo8/petcare"
+            target="_blank"
+          >
+            View on GitHub
+          </a>
+        </div>
+
+        <!-- ClassKit -->
+        <div class="card">
+          <img src="/img/img-classkit.png" alt="ClassKit" />
+
+          <h4 class="lang-es">ClassKit — Gestión de Recursos Educativos</h4>
+          <h4 class="lang-en">ClassKit — Educational Resource Management</h4>
+
+          <p class="lang-es">
+            Participé como <strong>Backend Developer</strong> especializada en
+            <strong>usuarios y autenticación</strong>. Implementé los módulos de
+            usuarios, instituciones, login seguro, validaciones y brindé soporte
+            al equipo para resolver errores. Plataforma destinada a la reserva y
+            administración de equipos tecnológicos en instituciones educativas.
+          </p>
+
+          <p class="lang-en">
+            I participated as a <strong>Backend Developer</strong> specialized
+            in <strong>user management and authentication</strong>. I
+            implemented the user and institution modules, secure login,
+            validations and supported the team with bug resolution. Platform
+            designed for managing and reserving technological equipment in
+            educational institutions.
+          </p>
+
+          <div class="tech">
+            Java · Spring Boot · Spring Security · MySQL · Swagger · Docker
+          </div>
+
+          <a
+            class="btn lang-es"
+            href="https://github.com/No-Country-simulation/equipo-c23-99-webapp"
+            target="_blank"
+          >
+            Ver en GitHub
+          </a>
+          <a
+            class="btn lang-en"
+            href="https://github.com/No-Country-simulation/equipo-c23-99-webapp"
+            target="_blank"
+          >
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="experiencia" class="section">
+      <!-- Títulos -->
+      <h3 class="lang-es">Experiencia y Educación</h3>
+      <h3 class="lang-en">Experience & Education</h3>
+
+      <div class="timeline-wrapper">
+        <!-- EXPERIENCIA -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+
+          <h4 class="timeline-title lang-es">Experiencia</h4>
+          <h4 class="timeline-title lang-en">Experience</h4><br />
+
+          <!-- Altiora Tech -->
+          <div class="timeline-role lang-es">
+            Backend Developer — Altiora Tech
+          </div>
+          <div class="timeline-role lang-en">
+            Backend Developer — Altiora Tech
+          </div>
+
+          <div class="timeline-desc lang-es">
+            Proyecto colaborativo · APIs REST · Spring Boot · Buenas prácticas
+          </div>
+          <div class="timeline-desc lang-en">
+            Collaborative project · REST APIs · Spring Boot · Best practices
+          </div>
+
+          <div class="badges">
+            <span class="badge">Backend</span>
+            <span class="badge">Spring Boot</span>
+            <span class="badge">API REST</span>
+          </div>
+
+          <br />
+
+          <!-- Comité AlumniONE -->
+          <div class="timeline-role lang-es">
+            Comité AlumniONE Latam — Oracle + Alura
+          </div>
+          <div class="timeline-role lang-en">
+            AlumniONE Commité Latam — Oracle + Alura
+          </div>
+
+          <div class="timeline-desc lang-es">
+            Voluntariado · Organización de eventos · Soporte a comunidad
+          </div>
+          <div class="timeline-desc lang-en">
+            Volunteering · Event organization · Community support
+          </div>
+
+          <div class="badges">
+            <span class="badge">Voluntariado</span>
+            <span class="badge">Comunidad</span>
+          </div>
+
+          <br />
+
+          <!-- ONE Helper -->
+          <div class="timeline-role lang-es">
+            ONE Helper — Mentoría Comunitaria
+          </div>
+          <div class="timeline-role lang-en">
+            ONE Helper — Community Mentorship
+          </div>
+
+          <div class="timeline-desc lang-es">
+            Acompañamiento a estudiantes · Resolución de dudas técnicas
+          </div>
+          <div class="timeline-desc lang-en">
+            Student support · Technical guidance and problem solving
+          </div>
+
+          <div class="badges">
+            <span class="badge">Mentoría</span>
+            <span class="badge">Soporte Técnico</span>
+          </div>
+        </div>
+
+        <!-- EDUCACIÓN -->
+        <div class="timeline-item">
+          <div class="timeline-marker"></div>
+
+          <h4 class="timeline-title lang-es">Educación</h4>
+          <h4 class="timeline-title lang-en">Education</h4><br />
+
+          <!-- Tecnicatura -->
+          <div class="timeline-role lang-es">
+            Tecnicatura en Análisis Funcional de Sistemas Informáticos — En
+            curso
+          </div>
+          <div class="timeline-role lang-en">
+            Higher Technician in Functional Analysis of Information Systems —
+            Ongoing
+          </div>
+
+          <div class="timeline-desc lang-es">
+            Primer año aprobado · Actualmente cursando el segundo año <br />
+            Arquitectura de sistemas · Modelado · Documentación técnica
+          </div>
+          <div class="timeline-desc lang-en">
+            First year completed · Currently attending the second year <br />
+            Systems architecture · Modeling · Technical documentation
+          </div>
+
+          <div class="badges">
+            <span class="badge">Sistemas</span>
+            <span class="badge">Modelado</span>
+            <span class="badge">Arquitectura</span>
+          </div>
+
+          <br />
+
+          <!-- ONE + Alura -->
+          <div class="timeline-role lang-es">
+            Programación Backend Java — Oracle ONE + Alura
+          </div>
+          <div class="timeline-role lang-en">
+            Java Backend Programming — Oracle ONE + Alura
+          </div>
+
+          <div class="timeline-desc lang-es">
+            +400 horas de formación práctica · Java · Spring Boot · SQL · APIs ·
+            Web
+          </div>
+          <div class="timeline-desc lang-en">
+            400+ hours of practical training · Java · Spring Boot · SQL · APIs ·
+            Web
+          </div>
+
+          <div class="badges">
+            <span class="badge">Java</span>
+            <span class="badge">Spring Boot</span>
+            <span class="badge">SQL</span>
+            <span class="badge">APIs REST</span>
+          </div>
+
+          <br />
+
+          <!-- Egg Full Stack -->
+          <div class="timeline-role lang-es">
+            Programación Full Stack — Argentina Programa 4.0 (Egg)
+          </div>
+          <div class="timeline-role lang-en">
+            Full Stack Programming — Argentina Programa 4.0 (Egg)
+          </div>
+
+          <div class="timeline-desc lang-es">
+            440 horas · Fundamentos · Front-End · Back-End · Trabajo en equipo
+          </div>
+          <div class="timeline-desc lang-en">
+            440 hours · Fundamentals · Front-End · Back-End · Teamwork
+          </div>
+
+          <div class="badges">
+            <span class="badge">HTML</span>
+            <span class="badge">CSS</span>
+            <span class="badge">JavaScript</span>
+          </div>
+
+          <br />
+
+          <!-- Egg Spring -->
+          <div class="timeline-role lang-es">
+            Spring & Proyecto Integrador — Egg
+          </div>
+          <div class="timeline-role lang-en">
+            Spring & Capstone Project — Egg
+          </div>
+
+          <div class="timeline-desc lang-es">
+            48 encuentros · Desarrollo de API · Seguridad · Proyecto real
+          </div>
+          <div class="timeline-desc lang-en">
+            48 sessions · API development · Security · Real project
+          </div>
+
+          <div class="badges">
+            <span class="badge">Spring Boot</span>
+            <span class="badge">APIs</span>
+            <span class="badge">Práctica Real</span>
+          </div>
+
+          <br />
+
+          <!-- Cursos Complementarios -->
+          <div class="timeline-role lang-es">Cursos complementarios</div>
+          <div class="timeline-role lang-en">Complementary Courses</div>
+
+          <div class="timeline-desc lang-es">
+            Git · Docker · Seguridad · DevOps · Metodologías Ágiles · Redes ·
+            Linux · Inteligencia Artificial aplicada
+          </div>
+          <div class="timeline-desc lang-en">
+            Git · Docker · Security · DevOps · Agile Methodologies · Networking
+            · Linux · Applied Artificial Intelligence
+          </div>
+
+          <div class="badges">
+            <span class="badge">Git</span>
+            <span class="badge">Docker</span>
+            <span class="badge">Seguridad</span>
+            <span class="badge">DevOps</span>
+            <span class="badge">IA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section">
+      <h3 class="lang-es">Contacto</h3>
+      <h3 class="lang-en">Contact</h3>
+
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 35px;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <!-- Avatar -->
+        <div
+          style="
+            flex: 0 0 130px;
+            height: 130px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.45);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            transform: translateZ(0);
+            transition: 0.3s ease;
+          "
+        >
+          <img
+            src="/img/avatar.png"
+            alt="avatar"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              filter: brightness(1.12);
+            "
+          />
+        </div>
+
+        <!-- Contacto -->
+        <div style="flex: 1; min-width: 260px">
+          <!-- Email -->
+          <p
+            class="contact-item"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              cursor: pointer;
+            "
+          >
+            <svg
+              class="contact-icon"
+              width="24"
+              height="24"
+              fill="var(--accent)"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 1.99 2H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"
+              />
+            </svg>
+            <a
+              href="mailto:julidrz83@gmail.com"
+              style="color: var(--accent); text-decoration: none"
+            >
+              julidrz83@gmail.com
+            </a>
+          </p>
+
+          <!-- LinkedIn -->
+          <p
+            class="contact-item"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              cursor: pointer;
+            "
+          >
+            <svg
+              class="contact-icon"
+              width="24"
+              height="24"
+              fill="var(--primary-light)"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-6 19c-3.859 0-7-3.141-7-7s3.141-7 7-7c3.859 0 7 3.141 7 7s-3.141 7-7 7zm6.406-12.991c-.896 0-1.625-.729-1.625-1.625s.729-1.625 1.625-1.625 1.625.729 1.625 1.625-.728 1.625-1.625 1.625z"
+              />
+            </svg>
+            <a
+              href="https://www.linkedin.com/in/julia-daniela-rodriguez/"
+              target="_blank"
+              style="color: var(--primary-light); text-decoration: none"
+            >
+              <span class="lang-es">LinkedIn</span>
+              <span class="lang-en">LinkedIn</span>
+            </a>
+          </p>
+
+          <!-- GitHub -->
+          <p
+            class="contact-item"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              cursor: pointer;
+            "
+          >
+            <svg
+              class="contact-icon"
+              width="24"
+              height="24"
+              fill="var(--secondary)"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.724-4.033-1.416-4.033-1.416-.546-1.385-1.333-1.754-1.333-1.754-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.417-1.305.76-1.604-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.48 11.48 0 0 1 3.003-.404 11.48 11.48 0 0 1 3.003.404c2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.803 5.624-5.475 5.921.43.372.814 1.102.814 2.222v3.293c0 .322.216.694.825.576 4.765-1.587 8.2-6.084 8.2-11.385 0-6.627-5.373-12-12-12z"
+              />
+            </svg>
+            <a
+              href="https://github.com/JuliaDaniR"
+              target="_blank"
+              style="color: var(--secondary); text-decoration: none"
+            >
+              GitHub
+            </a>
+          </p>
+
+          <!-- Info profesional -->
+          <div
+            class="lang-es"
+            style="
+              margin-top: 22px;
+              padding: 12px 18px;
+              background: rgba(255, 255, 255, 0.03);
+              border: 1px solid rgba(255, 255, 255, 0.07);
+              border-radius: 10px;
+              font-size: 0.95rem;
+              color: #cfcfcf;
+              max-width: 450px;
+            "
+          >
+            🇦🇷 Argentina (UTC-3) · Disponibilidad adaptable a equipo y sprints
+            <br />
+            💻 Trabajo remoto · Flexibilidad horaria
+          </div>
+
+          <div
+            class="lang-en"
+            style="
+              margin-top: 22px;
+              padding: 12px 18px;
+              background: rgba(255, 255, 255, 0.03);
+              border: 1px solid rgba(255, 255, 255, 0.07);
+              border-radius: 10px;
+              font-size: 0.95rem;
+              color: #cfcfcf;
+              max-width: 450px;
+            "
+          >
+            🇦🇷 Argentina (UTC-3) · Availability aligned with team and sprint
+            needs <br />
+            💻 Remote work · Adaptable schedule
+          </div>
+
+          <!-- Botón CV -->
+          <div style="margin-top: 22px">
+            <a
+              href="/cv/JuliaRodriguezCV.pdf"
+              download
+              class="btn-descarga-cv"
+              style="
+                padding: 10px 18px;
+                border-radius: 8px;
+                background: linear-gradient(
+                  90deg,
+                  var(--accent),
+                  var(--secondary)
+                );
+                color: #fff;
+                text-decoration: none;
+                font-weight: 600;
+                box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+                transition: 0.25s ease;
+                display: inline-block;
+              "
+            >
+              <span class="lang-es">Descargar CV</span>
+              <span class="lang-en">Download Resume</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© 2025 Julia Daniela Rodriguez</p>
+
+      <div
+        class="lang-es"
+        style="margin-top: 15px; font-size: 0.85rem; color: #8a8a8a"
+      >
+        Construido con pasión, disciplina y enfoque.
+      </div>
+
+      <div
+        class="lang-en"
+        style="margin-top: 15px; font-size: 0.85rem; color: #8a8a8a"
+      >
+        Built with passion, discipline, and focus.
+      </div>
+    </footer>
+
+    <script>
+      // efecto typing
+      const typingEl = document.getElementById("typing");
+      if (typingEl) typingEl.textContent = "Julia Daniela Rodriguez";
+
+      // scroll reveal (único script)
+      const revealSections = document.querySelectorAll(".section");
+
+      function reveal() {
+        const trigger = window.innerHeight * 0.85;
+        revealSections.forEach((sec) => {
+          const top = sec.getBoundingClientRect().top;
+          if (top < trigger) sec.classList.add("visible");
+        });
+      }
+
+      window.addEventListener("scroll", reveal);
+      reveal();
+    </script>
+    <script>
+      const typing = document.getElementById("typing");
+      const typingText = "Julia Daniela Rodriguez";
+
+      // Inicializa el texto
+      if (typing) typing.textContent = typingText;
+
+      function restartTyping() {
+        // Reinicia la animación
+        typing.style.animation = "none";
+        // Forzar reflow
+        void typing.offsetWidth;
+        typing.textContent = ""; // borra temporalmente el texto
+        typing.textContent = typingText; // vuelve a ponerlo
+        typing.style.animation =
+          "typing 3.5s steps(40) forwards, blink 0.8s infinite";
+      }
+
+      // Cada 60 segundos reinicia la animación
+      setInterval(restartTyping, 30000);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <script>
+      let particles = [];
+      let ripples = [];
+      // paleta solo para partículas
+      let particlePalette = [
+        "#5e5e5e", // gris
+        "#8a2be2", // violeta
+        "#cccccc", // gris claro para contraste
+      ];
+
+      function getParticleColor() {
+        return color(random(particlePalette));
+      }
+
+      function setup() {
+        let c = createCanvas(windowWidth, windowHeight);
+        c.position(0, 0);
+        c.style("z-index", "-1");
+        c.style("position", "fixed");
+        noStroke();
+        for (let i = 0; i < 150; i++) particles.push(new Particle());
+      }
+
+      class Particle {
+        constructor() {
+          this.x = random(width);
+          this.y = random(height);
+          this.speed = random(0.4, 1.6);
+          this.size = random(1.5, 3);
+          this.color = getParticleColor();
+        }
+
+        update() {
+          let angle =
+            noise(this.x * 0.0015, this.y * 0.0015, frameCount * 0.0015) *
+            TWO_PI *
+            2;
+          this.x += cos(angle) * this.speed;
+          this.y -= sin(angle) * this.speed;
+          if (this.y < 0) this.y = height;
+          if (this.x < 0) this.x = width;
+          if (this.x > width) this.x = 0;
+        }
+
+        display() {
+          fill(this.color);
+          ellipse(this.x, this.y, this.size);
+        }
+      }
+
+      function draw() {
+        // no cambiamos el fondo, solo dibujamos partículas
+        clear(); // mantiene el fondo transparente
+        for (let p of particles) {
+          p.update();
+          p.display();
+        }
+        drawRipples();
+      }
+
+      function drawRipples() {
+        noFill();
+        const rippleColor = getParticleColor();
+        stroke(red(rippleColor), green(rippleColor), blue(rippleColor), 100);
+        strokeWeight(1.4);
+        for (let r of ripples) {
+          circle(r.x, r.y, r.r);
+          r.r += 3;
+          r.life -= 4;
+        }
+        ripples = ripples.filter((r) => r.life > 0);
+      }
+
+      function mousePressed() {
+        for (let i = 0; i < 25; i++) {
+          let p = new Particle();
+          p.x = mouseX;
+          p.y = mouseY;
+          p.color = getParticleColor();
+          p.size = random(3, 5.5);
+          p.speed = random(1, 3);
+          particles.push(p);
+        }
+        ripples.push({ x: mouseX, y: mouseY, r: 0, life: 200 });
+      }
+
+      function mouseMoved() {
+        particles.push(new Particle());
+        if (particles.length > 320) particles.splice(0, 1);
+      }
+
+      function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+      }
+    </script>
+    <script>
+      const toggleBtn = document.getElementById("lang-toggle");
+      let lang = "es"; // idioma por defecto
+
+      toggleBtn.addEventListener("click", () => {
+        lang = lang === "es" ? "en" : "es";
+
+        document.querySelectorAll(".lang-es").forEach((el) => {
+          el.style.display = lang === "es" ? "inline-block" : "none";
+        });
+        document.querySelectorAll(".lang-en").forEach((el) => {
+          el.style.display = lang === "en" ? "inline-block" : "none";
+        });
+      });
+    </script>
+  </body>
+</html>
