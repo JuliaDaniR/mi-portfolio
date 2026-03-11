@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -11,7 +11,8 @@
         font-family: Arial, sans-serif;
         background: #0d0d0f;
         color: #e5e5e5;
-        background-image: radial-gradient(
+        background-image:
+          radial-gradient(
             circle at 20% 20%,
             rgba(255, 255, 255, 0.06),
             transparent 60%
@@ -103,7 +104,9 @@
         box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
         opacity: 0;
         transform: scale(0.98);
-        transition: opacity 0.7s ease, transform 0.7s ease;
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
       }
 
       .section h3 {
@@ -170,7 +173,9 @@
         overflow: hidden;
         border: 1px solid rgba(255, 255, 255, 0.05);
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
         transform-style: preserve-3d;
         display: flex;
         flex-direction: column;
@@ -283,7 +288,9 @@
         overflow: hidden;
         border-right: 3px solid var(--secondary);
         display: inline-block;
-        animation: typing 3.5s steps(40) forwards, blink 0.8s infinite;
+        animation:
+          typing 3.5s steps(40) forwards,
+          blink 0.8s infinite;
       }
 
       @media (max-width: 850px) {
@@ -741,7 +748,8 @@
             style="color: var(--primary-light); margin-bottom: 10px"
           >
             Strengths
-          </h4><br />
+          </h4>
+          <br />
 
           <!-- Chips -->
           <span class="chip lang-es">Pensamiento lógico</span>
@@ -758,6 +766,18 @@
 
           <span class="chip lang-es">Trabajo en equipo</span>
           <span class="chip lang-en">Teamwork</span>
+
+          <span class="chip lang-es">Aprendizaje continuo</span>
+          <span class="chip lang-en">Continuous Learning</span>
+
+          <span class="chip lang-es">Adaptabilidad</span>
+          <span class="chip lang-en">Adaptability</span>
+
+          <span class="chip lang-es">Comunicación efectiva</span>
+          <span class="chip lang-en">Effective Communication</span>
+
+          <span class="chip lang-es">Atención al detalle</span>
+          <span class="chip lang-en">Attention to Detail</span>
         </div>
       </div>
 
@@ -838,34 +858,33 @@
         Technologies & Main Stack
       </h3>
 
+      <!-- BACKEND -->
+      <h4 class="skills-subtitle lang-es">Backend – Stack Principal</h4>
+      <h4 class="skills-subtitle lang-en">Backend – Main Stack</h4>
+
       <div class="skills-grid">
         <!-- Java -->
         <div class="skill-item">
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
-            alt="Java"
             class="skill-icon"
           />
-          <span class="lang-es">Java</span>
-          <span class="lang-en">Java</span>
+          <span>Java</span>
         </div>
 
         <!-- Spring Boot -->
         <div class="skill-item">
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"
-            alt="Spring Boot"
             class="skill-icon"
           />
-          <span class="lang-es">Spring Boot</span>
-          <span class="lang-en">Spring Boot</span>
+          <span>Spring Boot</span>
         </div>
 
         <!-- Spring Security -->
         <div class="skill-item">
-          <img src="img/lock.svg" class="skill-icon" alt="Security" />
-          <span class="lang-es">Spring Security (JWT)</span>
-          <span class="lang-en">Spring Security (JWT)</span>
+          <img src="img/lock.svg" class="skill-icon" />
+          <span>Spring Security (JWT)</span>
         </div>
 
         <!-- REST APIs -->
@@ -876,50 +895,42 @@
               d="M3 3h18v4H3V3m0 7h18v4H3v-4m0 7h18v4H3v-4z"
             />
           </svg>
-          <span class="lang-es">APIs REST</span>
-          <span class="lang-en">REST APIs</span>
+          <span>APIs REST</span>
         </div>
 
-        <!-- JPA / Hibernate -->
+        <!-- Hibernate -->
         <div class="skill-item">
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hibernate/hibernate-original.svg"
             class="skill-icon"
-            alt="Hibernate"
           />
-          <span class="lang-es">JPA / Hibernate</span>
-          <span class="lang-en">JPA / Hibernate</span>
+          <span>JPA / Hibernate</span>
         </div>
 
-        <!-- MySQL -->
+        <!-- Databases -->
         <div class="skill-item">
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg"
             class="skill-icon"
-            alt="MySQL"
           />
-          <span class="lang-es">MySQL</span>
-          <span class="lang-en">MySQL</span>
+          <span>MySQL</span>
         </div>
 
-        <!-- PostgreSQL -->
         <div class="skill-item">
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
             class="skill-icon"
-            alt="PostgreSQL"
           />
-          <span class="lang-es">PostgreSQL</span>
-          <span class="lang-en">PostgreSQL</span>
+          <span>PostgreSQL</span>
         </div>
 
-        <!-- Flyway -->
+        <!-- Maven -->
         <div class="skill-item">
-          <svg class="skill-icon" viewBox="0 0 24 24">
-            <path fill="#8a2be2" d="M12 2L1 21h22L12 2z" />
-          </svg>
-          <span class="lang-es">Flyway</span>
-          <span class="lang-en">Flyway</span>
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg"
+            class="skill-icon"
+          />
+          <span>Maven</span>
         </div>
 
         <!-- Docker -->
@@ -927,10 +938,8 @@
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
             class="skill-icon"
-            alt="Docker"
           />
-          <span class="lang-es">Docker</span>
-          <span class="lang-en">Docker</span>
+          <span>Docker</span>
         </div>
 
         <!-- Git -->
@@ -938,24 +947,20 @@
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg"
             class="skill-icon"
-            alt="Git"
           />
-          <span class="lang-es">Git & GitHub</span>
-          <span class="lang-en">Git & GitHub</span>
+          <span>Git & GitHub</span>
         </div>
 
-        <!-- Swagger -->
+        <!-- OpenAPI -->
         <div class="skill-item">
           <img
             src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg"
             class="skill-icon"
-            alt="Swagger"
           />
-          <span class="lang-es">Swagger / OpenAPI 3</span>
-          <span class="lang-en">Swagger / OpenAPI 3</span>
+          <span>Swagger / OpenAPI</span>
         </div>
 
-        <!-- Testing -->
+        <!-- JUnit -->
         <div class="skill-item">
           <svg class="skill-icon" viewBox="0 0 24 24">
             <path
@@ -963,8 +968,53 @@
               d="M4 22v-2h16v2H4m8-20c2.7 0 5 2.3 5 5 0 2.2-1.5 4.1-3.5 4.8L13 19h-2l-.5-7.2C8.5 11.1 7 9.2 7 7c0-2.7 2.3-5 5-5z"
             />
           </svg>
-          <span class="lang-es">Testing (JUnit)</span>
-          <span class="lang-en">Testing (JUnit)</span>
+          <span>Testing (JUnit)</span>
+        </div>
+      </div>
+
+      <!-- TOOLS -->
+      <h4 class="skills-subtitle lang-es">Herramientas</h4>
+      <h4 class="skills-subtitle lang-en">Tools</h4>
+
+      <div class="skills-grid">
+        <!-- Postman -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg"
+            class="skill-icon"
+            alt="Postman"
+          />
+          <span>Postman</span>
+        </div>
+
+        <!-- Insomnia -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/insomnia/insomnia-original.svg"
+            class="skill-icon"
+            alt="Insomnia"
+          />
+          <span>Insomnia</span>
+        </div>
+
+        <!-- Trello -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-original.svg"
+            class="skill-icon"
+            alt="Trello"
+          />
+          <span>Trello</span>
+        </div>
+
+        <!-- Notion -->
+        <div class="skill-item">
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg"
+            class="skill-icon"
+            alt="Notion"
+          />
+          <span>Notion</span>
         </div>
       </div>
     </section>
@@ -1108,7 +1158,8 @@
     <section id="otros-proyectos" class="section">
       <!-- Título -->
       <h3 class="lang-es">Otros Proyectos Backend</h3>
-      <h3 class="lang-en">Other Backend Projects</h3><br />
+      <h3 class="lang-en">Other Backend Projects</h3>
+      <br />
 
       <!-- Subtítulo -->
       <h4 class="subtitle lang-es">Proyectos Individuales</h4>
@@ -1398,11 +1449,13 @@
           <div class="timeline-marker"></div>
 
           <h4 class="timeline-title lang-es">Experiencia</h4>
-          <h4 class="timeline-title lang-en">Experience</h4><br />
+          <h4 class="timeline-title lang-en">Experience</h4>
+          <br />
 
           <!-- Altiora Tech -->
           <div class="timeline-role lang-es">
-            CoFounder - Desarrolladora BackEnd — Altiora Tech(oct. 2025 - actualidad)
+            CoFounder - Desarrolladora BackEnd — Altiora Tech(oct. 2025 -
+            actualidad)
           </div>
           <div class="timeline-role lang-en">
             CoFounder - Backend Developer — Altiora Tech(Oct. 2025 - Present)
@@ -1447,7 +1500,8 @@
 
           <!-- ONE Helper -->
           <div class="timeline-role lang-es">
-            ONE Helper — Mentoría Comunitariasept(sept. 2024 - ene. 2025 · 5 meses)
+            ONE Helper — Mentoría Comunitariasept(sept. 2024 - ene. 2025 · 5
+            meses)
           </div>
           <div class="timeline-role lang-en">
             ONE Helper — Community Mentorship(Sept. 2024 - Jan. 2025 · 5 months)
@@ -1471,7 +1525,8 @@
           <div class="timeline-marker"></div>
 
           <h4 class="timeline-title lang-es">Educación</h4>
-          <h4 class="timeline-title lang-en">Education</h4><br />
+          <h4 class="timeline-title lang-en">Education</h4>
+          <br />
 
           <!-- Tecnicatura -->
           <div class="timeline-role lang-es">
@@ -1785,8 +1840,12 @@
                 display: inline-block;
               "
             >
-              <span class="lang-es">Descargar CV — Disponible para roles Backend</span>
-              <span class="lang-en">Download Resume — Open to Backend Roles</span>
+              <span class="lang-es"
+                >Descargar CV — Disponible para roles Backend</span
+              >
+              <span class="lang-en"
+                >Download Resume — Open to Backend Roles</span
+              >
             </a>
           </div>
         </div>
